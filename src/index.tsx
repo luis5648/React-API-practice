@@ -9,9 +9,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <DataPlaced />
+    <App/>
   </React.StrictMode>
 );
+    //<DataPlaced />
 //put <App /> inside </React.StrictMode>to render the default screen
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
