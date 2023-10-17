@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { getInfo } from "../api/ghibli_api";
+import GhibliService from "../api/GhibliService";
+import IGhibliData from "../api/GhibliData";
 import React from "react";
-export function DataPlaced() {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
 
-  const [AllInfo, setInfo] = useState([]);
+/*const [AllInfo, setInfo] = useState([]);
+  
 
   useEffect(() => {
     async function loadInfo() {
@@ -13,14 +13,38 @@ export function DataPlaced() {
     }
     loadInfo();
   }, []);
+*/
+const FilmList: React.FC = () => {
+  const [films, setFilms] = useState<Array<IGhibliData>>([]);
+
+  useEffect(() => {
+    RetreiveFilms();
+  }, []);
+
+  const RetreiveFilms = () => {
+    GhibliService.getAll()
+      .then((response: any) => {
+        setFilms(response.data);
+        //to test:
+        console.log(response.data);
+      })
+      .catch((e: Error) => {
+        console.log(e);
+      });
+  };
 
   return (
     <div>
-      {AllInfo.map(info =>(
-      <ul key={info.id}>
-          <li>{info.title} <p>{info.description}</p></li>
-      </ul>
-        ))}
+      {films.map((film) => (
+        <ul key={film.id}>
+          <li>
+            {film.title} <p>{film.description}</p>
+          <img src="{film.image}" alt="imagen"/>
+          </li>
+        </ul>
+      ))}
     </div>
   );
-}
+};
+
+export default FilmList;
