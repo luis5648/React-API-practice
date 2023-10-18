@@ -1,3 +1,12 @@
+//MUI imports
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import { CardActionArea } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+
 import { useEffect, useState } from "react";
 import GhibliService from "../api/GhibliService";
 import IGhibliData from "../api/GhibliData";
@@ -14,6 +23,7 @@ import React from "react";
     loadInfo();
   }, []);
 */
+
 const FilmList: React.FC = () => {
   const [films, setFilms] = useState<Array<IGhibliData>>([]);
 
@@ -35,14 +45,33 @@ const FilmList: React.FC = () => {
 
   return (
     <div>
-      {films.map((film) => (
-        <ul key={film.id}>
-          <li>
-            {film.title} <p>{film.description}</p>
-          <img src="{film.image}" alt="imagen"/>
-          </li>
-        </ul>
-      ))}
+      <h2>Ghibli Films</h2>
+      <Box sx={{ flexGrow: 1, m: 4 }}>
+        <Grid container rowSpacing={8} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+          {films.map((film) => (
+            <Grid item xs={2} key={film.id}>
+              <Card sx={{ maxWidth: 340 }}>
+                <CardActionArea>
+                  <CardMedia
+                    component="img"
+                    height="345"
+                    image={film.image}
+                    alt="image"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                      {film.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {film.description}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
     </div>
   );
 };
