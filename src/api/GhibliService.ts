@@ -1,4 +1,4 @@
-import IGhibliData from "./GhibliData";
+import IGhibliData from "../interfaces/GhibliData";
 import Data from "./ghibli_api";
 
 const getAll = () =>{

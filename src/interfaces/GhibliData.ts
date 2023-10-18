@@ -1,6 +1,6 @@
 export default interface IGhibliData {
-  id?: any | null;
+  id: string;
   title: string;
   description: string;
-  image: any |null
+  image: string;
 }
