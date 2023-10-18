@@ -5,16 +5,28 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: rgb(242, 219, 250);
   background: linear-gradient(
-    21deg,
-    rgba(219, 250, 246, 1) 28%,
-    rgba(93, 255, 179, 1) 100%
+    59deg,
+    rgba(242, 219, 250, 1) 0%,
+    rgba(220, 255, 251, 1) 100%
   );
 }
 
 #contentApp {
-  
   margin: 2%;
+}
+
+#cards {
+  background: rgb(250, 250, 219);
+  background: linear-gradient(
+    59deg,
+    rgba(250, 250, 219, 1) 0%,
+    rgba(246, 224, 255, 1) 100%
+  );
+}
+
+#cardImage {
 }
 
 code {

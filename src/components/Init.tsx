@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 
 import { useEffect, useState } from "react";
 import GhibliService from "../api/GhibliService";
@@ -26,6 +27,7 @@ import React from "react";
 
 const FilmList: React.FC = () => {
   const [films, setFilms] = useState<Array<IGhibliData>>([]);
+  const [showMore, setShowMore] = useState(false);
 
   useEffect(() => {
     RetreiveFilms();
@@ -51,19 +53,22 @@ const FilmList: React.FC = () => {
           {films.map((film) => (
             <Grid item xs={2} key={film.id}>
               <Card sx={{ maxWidth: 340 }}>
-                <CardActionArea>
+                <CardActionArea id="cards">
                   <CardMedia
                     component="img"
                     height="345"
                     image={film.image}
                     alt="image"
+					sx={{m: 1}}
                   />
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                       {film.title}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      {film.description}
+                     
+					  {showMore ? film.description : `${film.description.substring(0,50)}`}
+						<Button color="secondary" onClick={() => setShowMore(!showMore)}>{showMore ? "Show less" : "Show more"}</Button>
                     </Typography>
                   </CardContent>
                 </CardActionArea>
