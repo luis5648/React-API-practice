@@ -44,7 +44,7 @@ const FilmList: React.FC = () => {
   };
 
   return (
-    <div>
+    <div id="contentApp">
       <h2>Ghibli Films</h2>
       <Box sx={{ flexGrow: 1, m: 4 }}>
         <Grid container rowSpacing={8} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
