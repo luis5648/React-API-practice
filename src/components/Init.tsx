@@ -13,18 +13,6 @@ import GhibliService from "../api/GhibliService";
 import IGhibliData from "../api/GhibliData";
 import React from "react";
 
-/*const [AllInfo, setInfo] = useState([]);
-  
-
-  useEffect(() => {
-    async function loadInfo() {
-      const res = await getInfo();
-      setInfo(res.data);
-    }
-    loadInfo();
-  }, []);
-*/
-
 const FilmList: React.FC = () => {
   const [films, setFilms] = useState<Array<IGhibliData>>([]);
   const [showMore, setShowMore] = useState(false);
