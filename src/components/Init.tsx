@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import GhibliService from "../api/GhibliService";
 import IGhibliData from "../interfaces/GhibliData";
 import React from "react";
+import ShowMore from "./ShowMore";
 
 const FilmList: React.FC = () => {
   const [films, setFilms] = useState<Array<IGhibliData>|null>(null);
@@ -54,18 +55,10 @@ const FilmList: React.FC = () => {
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                       {film.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {showMore
-                        ? film.description
-                        : `${film.description.substring(0, 50)}`}
-                      <Button
-                        color="secondary"
-                        onClick={() => setShowMore(!showMore)}
-                      >
-                        {showMore ? "Show less" : "Show more"}
-                      </Button>
-                    </Typography>
+					</Typography>  
+					<ShowMore limit={50}>
+                      {film.description}
+					</ShowMore>
                   </CardContent>
                 </Card>
               </Card>
