@@ -56,6 +56,9 @@ const FilmList: React.FC = () => {
                     <Typography gutterBottom variant="h5" component="div">
                       {film.title}
 					</Typography>  
+					<Typography gutterBottom variant="h6" component="div">
+						{film.original_title}
+					</Typography>
 					<ShowMore limit={50}>
                       {film.description}
 					</ShowMore>
