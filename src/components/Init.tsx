@@ -1,31 +1,33 @@
 //MUI imports
-import { Container } from "@mui/system";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
+import Skeleton from "@mui/material/Skeleton";
+import { Container } from "@mui/system";
 
 import { useEffect, useState } from "react";
 import GhibliService from "../api/GhibliService";
 import IGhibliData from "../interfaces/GhibliData";
 import React from "react";
 import ShowMore from "./ShowMore";
+import { left } from "@popperjs/core";
 
 const FilmList: React.FC = () => {
   const [films, setFilms] = useState<Array<IGhibliData>|null>(null);
-  const [showMore, setShowMore] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     retreiveFilms();
   }, []);
 
-  const retreiveFilms = () => {
-    GhibliService.getAll()
+  const retreiveFilms = async () => {
+    await GhibliService.getAll()
       .then((response: any) => {
         setFilms(response.data);
+				setIsLoading(true);
         //to test:
         //console.log(response.data);
       })
@@ -35,7 +37,7 @@ const FilmList: React.FC = () => {
   };
 
   return (
-    <Box id="contentApp">
+    <Container sx={{ 'margin-left': '9%', 'margin-top': '2%' }}>
       <Typography gutterBottom variant="h3" component="div">
         Ghibli Films
       </Typography>
@@ -43,8 +45,11 @@ const FilmList: React.FC = () => {
         <Grid container rowSpacing={8} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {films?.map((film) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={film.id}>
+							       
               <Card sx={{ maxWidth: 340 }}>
                 <Card id="cards">
+							       {isLoading ? (
+
                   <CardMedia
                     component="img"
                     height="345"
@@ -52,6 +57,14 @@ const FilmList: React.FC = () => {
                     alt="image"
                     sx={{ m: 1 }}
                   />
+										 ) :
+										 
+				  <Skeleton
+				 	animation="wave" 
+					width={340}
+					height={345}
+				  />
+										 }
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                       {film.title}
@@ -65,11 +78,11 @@ const FilmList: React.FC = () => {
                   </CardContent>
                 </Card>
               </Card>
-            </Grid>
+           </Grid> 
           ))}
         </Grid>
       </Box>
-    </Box>
+    </Container>
   );
 };
 

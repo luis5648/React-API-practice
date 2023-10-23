@@ -14,7 +14,7 @@ body {
 }
 
 #contentApp {
-  margin: 2%;
+  margin: 2lvh;
 }
 
 #cards {
@@ -25,7 +25,6 @@ body {
     rgba(246, 224, 255, 1) 100%
   );
 }
-
 
 
 code {
