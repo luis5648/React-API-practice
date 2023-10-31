@@ -37,8 +37,8 @@ const FilmList: React.FC = () => {
   };
 
   return (
-    <Container sx={{ 'margin-left': '9%', 'margin-top': '2%' }}>
-      <Typography gutterBottom variant="h3" component="div">
+    <Container fixed>
+      <Typography gutterBottom variant="h3" component="div" sx={{m:2}}>
         Ghibli Films
       </Typography>
       <Box sx={{ flexGrow: 1, m: 4 }}>
