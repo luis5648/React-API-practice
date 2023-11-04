@@ -13,7 +13,6 @@ import GhibliService from "../api/GhibliService";
 import IGhibliData from "../interfaces/GhibliData";
 import React from "react";
 import ShowMore from "./ShowMore";
-import { left } from "@popperjs/core";
 
 const FilmList: React.FC = () => {
   const [films, setFilms] = useState<Array<IGhibliData>|null>(null);
