@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { fetchInfoSlice } from "./features/fetchInfo/fetchInfoSlice";
+import { Reducer } from "react";
 
-const Store = configureStore({
-    reducer: {},
+
+export const Store = configureStore({
+    
 })
-
-export default Store;
