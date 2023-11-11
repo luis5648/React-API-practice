@@ -10,12 +10,12 @@ import { Container } from "@mui/system";
 
 import { useEffect, useState } from "react";
 import GhibliService from "../api/GhibliService";
-import IGhibliData from "../interfaces/GhibliData";
+import Ifilms from "../interfaces/GhibliData";
 import React from "react";
 import ShowMore from "./ShowMore";
 
 const FilmList: React.FC = () => {
-  const [films, setFilms] = useState<Array<IGhibliData>|null>(null);
+  const [films, setFilms] = useState<Array<Ifilms>|null>(null);
 	const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {

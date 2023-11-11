@@ -1,8 +1,8 @@
-import IGhibliData from "../interfaces/GhibliData";
+import Ifilms from "../interfaces/GhibliData";
 import Data from "./ghibli_api";
 
 const getAll = () =>{
-    return Data.get<Array<IGhibliData>>("/films");
+    return Data.get<Array<Ifilms>>("/films");
 };
 
 

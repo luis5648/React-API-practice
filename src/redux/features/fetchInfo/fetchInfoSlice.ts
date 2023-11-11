@@ -1,6 +1,8 @@
 
 import { createSlice } from "@reduxjs/toolkit";
-import IGhibliData from "../../../interfaces/GhibliData";
+import Ifilms from "../../../interfaces/GhibliData";
+import { useSelector, useDispatch } from "react-redux";
+import { Interface } from "readline";
 
 /*
 export interface apiInformation {
@@ -12,15 +14,25 @@ export interface apiInformation {
 }
 */
 
-const initialState:  IGhibliData = {
-  id: "",
-  title: "",
-  original_title: "",
-  description: "", 
-  image: "",
+interface fetchFilmsPayload {
+  data: Ifilms[];
+}
+
+interface fetchFilmRejectedPayload {
+  error: string;
+}
+
+interface FilmsState {
+  data:Films 
+}
+
+const initialState:  Ifilms = {
+  data: [],
+  status:'Idle',
+  
 }
 export const fetchInfoSlice = createSlice({
-    name: "fetchInfo",
+    name: "films",
     initialState,
     reducers:{
         
