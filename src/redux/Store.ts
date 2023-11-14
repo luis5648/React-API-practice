@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { fetchInfoSlice } from "./features/fetchInfo/fetchInfoSlice";
+import { filmsSlice } from "./features/fetchInfo/fetchInfoSlice";
 import { Reducer } from "react";
 
 

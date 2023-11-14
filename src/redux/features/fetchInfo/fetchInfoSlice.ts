@@ -23,21 +23,22 @@ interface fetchFilmRejectedPayload {
 }
 
 interface FilmsState {
-  data:Films 
+  data: Ifilms[];
+  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  error: string | null; 
 }
 
-const initialState:  Ifilms = {
-  data: [],
-  status:'Idle',
-  
-}
-export const fetchInfoSlice = createSlice({
+export const filmsSlice = createSlice({
     name: "films",
-    initialState,
+    initialState: {
+      data: [],
+      status: 'idle',
+      error: 'null'
+    } as FilmsState,
     reducers:{
         
     }
 });
 
 
-export default fetchInfoSlice.reducer
+export default filmsSlice.reducer
