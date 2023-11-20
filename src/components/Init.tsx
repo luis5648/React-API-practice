@@ -14,9 +14,27 @@ import Ifilms from "../interfaces/GhibliData";
 import React from "react";
 import ShowMore from "./ShowMore";
 
-const FilmList: React.FC = () => {
+//redux
+import { useAppSelector } from "../redux/Store";
+import { fetchFilms } from "../redux/features/fetchInfo/fetchFilmsSlice";
+import { Dispatch } from "redux";
+import { useDispatch } from "react-redux";
+import { RootState } from "../redux/Store";
+//const FilmList: React.FC = () => {
+const FilmList = () => {
+  const dispatch = useDispatch();
+  const films = useAppSelector((state) => state.films.films);
+  const filmsStatus = useAppSelector((state) => state.films.status);
+
+  useEffect(() => {
+    dispatch(fetchFilms());
+  }, [dispatch]);
+
+  //console.log("Status: ",filmsStatus)
+  //console.log("PELICULAS: ", films)
+  //const [isLoading, setIsLoading] = useState(false);
+  /*
   const [films, setFilms] = useState<Array<Ifilms>|null>(null);
-	const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     retreiveFilms();
@@ -34,21 +52,18 @@ const FilmList: React.FC = () => {
         console.log(e);
       });
   };
-
+*/
   return (
     <Container fixed>
-      <Typography gutterBottom variant="h3" component="div" sx={{m:2}}>
+      <Typography gutterBottom variant="h3" component="div" sx={{ m: 2 }}>
         Ghibli Films
       </Typography>
       <Box sx={{ flexGrow: 1, m: 4 }}>
         <Grid container rowSpacing={8} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {films?.map((film) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={film.id}>
-							       
               <Card sx={{ maxWidth: 340 }}>
                 <Card id="cards">
-							       {isLoading ? (
-
                   <CardMedia
                     component="img"
                     height="345"
@@ -56,28 +71,18 @@ const FilmList: React.FC = () => {
                     alt="image"
                     sx={{ m: 1 }}
                   />
-										 ) :
-										 
-				  <Skeleton
-				 	animation="wave" 
-					width={340}
-					height={345}
-				  />
-										 }
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                       {film.title}
-					</Typography>  
-					<Typography gutterBottom variant="h6" component="div">
-						{film.original_title}
-					</Typography>
-					<ShowMore limit={50}>
-                      {film.description}
-					</ShowMore>
+                    </Typography>
+                    <Typography gutterBottom variant="h6" component="div">
+                      {film.original_title}
+                    </Typography>
+                    <ShowMore limit={50}>{film.description}</ShowMore>
                   </CardContent>
                 </Card>
               </Card>
-           </Grid> 
+            </Grid>
           ))}
         </Grid>
       </Box>
