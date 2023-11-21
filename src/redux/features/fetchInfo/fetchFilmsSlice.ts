@@ -1,8 +1,5 @@
-import axios from "axios";
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Ifilms from "../../../interfaces/GhibliData";
-import { useSelector, useDispatch } from "react-redux";
-import { Interface } from "readline";
 import GhibliService from "../../../api/GhibliService";
 /*
 export interface apiInformation {
@@ -15,35 +12,34 @@ export interface apiInformation {
 */
 
 interface filmsState {
-  films: Ifilms[] |null;
-  status: "idle" | "loading" | "failed" | "succeded"
-  error: string |null
+  films: Ifilms[] | null;
+  status: "idle" | "loading" | "failed" | "succeded";
+  error: string | null;
 }
 
-
 //async thunk definition for fetch info with axios
-export const fetchFilms = createAsyncThunk("films/fetchFilms", async (ThunkAPI) => {
-  const response = await GhibliService.getAll();
-  //const response = await axios.get('https://ghibliapi.vercel.app/');
-  const filmsData = await response.data;
-  console.log("films: ",filmsData);
-  return filmsData;
-})
-
+export const fetchFilms = createAsyncThunk(
+  "films/fetchFilms",
+  async (ThunkAPI) => {
+    const response = await GhibliService.getAll();
+    //const response = await axios.get('https://ghibliapi.vercel.app/');
+    const filmsData = await response.data;
+    console.log("films: ", filmsData);
+    return filmsData;
+  }
+);
 
 const initialState: filmsState = {
   films: [] as Ifilms[],
   status: "idle",
-  error: null
-
+  error: null,
 };
 
-
-export const filmsSlice = createSlice ({
+export const filmsSlice = createSlice({
   name: "films",
   initialState,
-    
-  reducers:{
+
+  reducers: {
     /*
     getFilms(){},
     setFilms(state, {payload}){
@@ -51,31 +47,28 @@ export const filmsSlice = createSlice ({
     }, */
   },
 
-  extraReducers: (builder) => { 
-  builder
-  .addCase(fetchFilms.pending,(state) =>{
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchFilms.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
 
-    state.status = "loading";
-    state.error = null
-  })
-  
-  .addCase(fetchFilms.fulfilled, (state, action) =>{
-    state.status = "succeded";
-    state.films = action.payload;
-  })
+      .addCase(fetchFilms.fulfilled, (state, action) => {
+        state.status = "succeded";
+        state.films = action.payload;
+      })
 
-  .addCase(fetchFilms.rejected, (state, action) =>{
-    state.status = "failed";
-    //state.error = action.error.message;
-    state.error = "??????????????????????";
-  })
-  }
-
-
+      .addCase(fetchFilms.rejected, (state, action) => {
+        state.status = "failed";
+        //state.error = action.error.message;
+        state.error = "Error loading Data API ";
+      });
+  },
 });
 
-
-export default filmsSlice.reducer
+export default filmsSlice.reducer;
+// eslint-disable-next-line no-empty-pattern
 export const {} = filmsSlice.actions;
 
 export const selectAllFilms = (state: filmsState) => state.films;

@@ -8,51 +8,25 @@ import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 import { Container } from "@mui/system";
 
-import { useEffect, useState } from "react";
-import GhibliService from "../api/GhibliService";
-import Ifilms from "../interfaces/GhibliData";
+import { useEffect } from "react";
 import React from "react";
 import ShowMore from "./ShowMore";
 
 //redux
 import { useAppSelector } from "../redux/Store";
 import { fetchFilms } from "../redux/features/fetchInfo/fetchFilmsSlice";
-import { Dispatch } from "redux";
-import { useDispatch } from "react-redux";
-import { RootState } from "../redux/Store";
-//const FilmList: React.FC = () => {
-const FilmList = () => {
-  const dispatch = useDispatch();
-  const films = useAppSelector((state) => state.films.films);
-  const filmsStatus = useAppSelector((state) => state.films.status);
+import { useAppDispatch } from "../redux/Store";
 
+const FilmList = () => {
+  const dispatch = useAppDispatch();
+  const films = useAppSelector((state) => state.films.films);
+
+  //to debug status state
+  const filmsStatus = useAppSelector((state) => state.films.status);
+  console.log(filmsStatus);
   useEffect(() => {
     dispatch(fetchFilms());
   }, [dispatch]);
-
-  //console.log("Status: ",filmsStatus)
-  //console.log("PELICULAS: ", films)
-  //const [isLoading, setIsLoading] = useState(false);
-  /*
-  const [films, setFilms] = useState<Array<Ifilms>|null>(null);
-
-  useEffect(() => {
-    retreiveFilms();
-  }, []);
-
-  const retreiveFilms = async () => {
-    await GhibliService.getAll()
-      .then((response: any) => {
-        setFilms(response.data);
-				setIsLoading(true);
-        //to test:
-        //console.log(response.data);
-      })
-      .catch((e: Error) => {
-        console.log(e);
-      });
-  };
-*/
   return (
     <Container fixed>
       <Typography gutterBottom variant="h3" component="div" sx={{ m: 2 }}>
@@ -63,6 +37,9 @@ const FilmList = () => {
           {films?.map((film) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={film.id}>
               <Card sx={{ maxWidth: 340 }}>
+                  {filmsStatus !== "succeded" ? (
+                    <Skeleton animation="wave" width={340} height={345} />
+                  ) : (
                 <Card id="cards">
                   <CardMedia
                     component="img"
@@ -71,16 +48,17 @@ const FilmList = () => {
                     alt="image"
                     sx={{ m: 1 }}
                   />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                      {film.title}
-                    </Typography>
-                    <Typography gutterBottom variant="h6" component="div">
-                      {film.original_title}
-                    </Typography>
-                    <ShowMore limit={50}>{film.description}</ShowMore>
-                  </CardContent>
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="div">
+                        {film.title}
+                      </Typography>
+                      <Typography gutterBottom variant="h6" component="div">
+                        {film.original_title}
+                      </Typography>
+                      <ShowMore limit={50}>{film.description}</ShowMore>
+                    </CardContent>
                 </Card>
+                  )}
               </Card>
             </Grid>
           ))}
