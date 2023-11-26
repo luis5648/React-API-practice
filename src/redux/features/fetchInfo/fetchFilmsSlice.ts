@@ -1,8 +1,5 @@
-import axios from "axios";
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Ifilms from "../../../interfaces/GhibliData";
-import { useSelector, useDispatch } from "react-redux";
-import { Interface } from "readline";
 import GhibliService from "../../../api/GhibliService";
 /*
 export interface apiInformation {
@@ -20,17 +17,17 @@ interface filmsState {
   error: string |null
 }
 
+/*
 
 //async thunk definition for fetch info with axios
 export const fetchFilms = createAsyncThunk("films/fetchFilms", async (ThunkAPI) => {
   const response = await GhibliService.getAll();
-  //const response = await axios.get('https://ghibliapi.vercel.app/');
   const filmsData = await response.data;
   console.log("films: ",filmsData);
   return filmsData;
 })
 
-
+*/
 const initialState: filmsState = {
   films: [] as Ifilms[],
   status: "idle",
@@ -44,13 +41,17 @@ export const filmsSlice = createSlice ({
   initialState,
     
   reducers:{
-    /*
-    getFilms(){},
-    setFilms(state, {payload}){
-      state.films = payload
-    }, */
+  fetchFilmsSuccess(state, action){
+    state.films = action.payload;
+    state.status = "succeded";
+  },
+  fetchFilmsFailure(state, action){
+    state.status = "failed";
+    state.error = action.payload;
+  },
   },
 
+/*
   extraReducers: (builder) => { 
   builder
   .addCase(fetchFilms.pending,(state) =>{
@@ -67,15 +68,14 @@ export const filmsSlice = createSlice ({
   .addCase(fetchFilms.rejected, (state, action) =>{
     state.status = "failed";
     //state.error = action.error.message;
-    state.error = "??????????????????????";
+     
   })
   }
-
+*/
 
 });
 
 
 export default filmsSlice.reducer
-export const {} = filmsSlice.actions;
-
+export const {fetchFilmsFailure, fetchFilmsSuccess} = filmsSlice.actions;
 export const selectAllFilms = (state: filmsState) => state.films;

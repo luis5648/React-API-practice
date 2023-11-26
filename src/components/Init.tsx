@@ -16,18 +16,19 @@ import ShowMore from "./ShowMore";
 
 //redux
 import { useAppSelector } from "../redux/Store";
-import { fetchFilms } from "../redux/features/fetchInfo/fetchFilmsSlice";
+import { selectAllFilms } from "../redux/features/fetchInfo/fetchFilmsSlice";
 import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
 import { RootState } from "../redux/Store";
 //const FilmList: React.FC = () => {
 const FilmList = () => {
   const dispatch = useDispatch();
-  const films = useAppSelector((state) => state.films.films);
-  const filmsStatus = useAppSelector((state) => state.films.status);
+  const {films, status} = useAppSelector((state: RootState) => state.films)
+  //const films = useAppSelector((state) => state.films.films);
+  //const filmsStatus = useAppSelector((state) => state.films.status);
 
-  useEffect(() => {
-    dispatch(fetchFilms());
+  useEffect((selectAllFilms(films)) => {
+    dispatch();
   }, [dispatch]);
 
   //console.log("Status: ",filmsStatus)
