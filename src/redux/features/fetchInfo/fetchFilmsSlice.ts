@@ -1,7 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import Ifilms from "../../../interfaces/GhibliData";
-import GhibliService from "../../../api/GhibliService";
-/*
+/*`
 export interface apiInformation {
   id: string;
   title: string;

@@ -22,5 +22,5 @@ function* fetchFilmsSaga(){
 }
 
 export function* filmsSaga(){
-    yield takeLatest("films/fetchFilms", fetchFilmsSaga);
+    yield takeLatest(fetchFilmsSuccess.type, fetchFilmsSaga);
 }

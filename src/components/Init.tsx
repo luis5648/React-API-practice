@@ -5,55 +5,27 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import Skeleton from "@mui/material/Skeleton";
+//import Skeleton from "@mui/material/Skeleton";
 import { Container } from "@mui/system";
 
-import { useEffect, useState } from "react";
-import GhibliService from "../api/GhibliService";
-import Ifilms from "../interfaces/GhibliData";
+import { useEffect } from "react";
 import React from "react";
 import ShowMore from "./ShowMore";
 
 //redux
-import { useAppSelector } from "../redux/Store";
-import { selectAllFilms } from "../redux/features/fetchInfo/fetchFilmsSlice";
-import { Dispatch } from "redux";
-import { useDispatch } from "react-redux";
-import { RootState } from "../redux/Store";
-//const FilmList: React.FC = () => {
+import { useAppSelector } from "../redux/store";
+import { useAppDispatch } from "../redux/store";
+import { fetchFilmsSuccess } from "../redux/features/fetchInfo/fetchFilmsSlice";
 const FilmList = () => {
-  const dispatch = useDispatch();
-  const {films, status} = useAppSelector((state: RootState) => state.films)
-  //const films = useAppSelector((state) => state.films.films);
+  const dispatch = useAppDispatch();
+  //get the films data:
+  const films = useAppSelector((state) => state.RootReducer.films.films);
   //const filmsStatus = useAppSelector((state) => state.films.status);
-
-  useEffect((selectAllFilms(films)) => {
-    dispatch();
-  }, [dispatch]);
-
-  //console.log("Status: ",filmsStatus)
-  //console.log("PELICULAS: ", films)
-  //const [isLoading, setIsLoading] = useState(false);
-  /*
-  const [films, setFilms] = useState<Array<Ifilms>|null>(null);
-
   useEffect(() => {
-    retreiveFilms();
-  }, []);
+    //we dispatch the reducer's function and pass as a parameter the films information
+    dispatch(fetchFilmsSuccess(films));
+  });
 
-  const retreiveFilms = async () => {
-    await GhibliService.getAll()
-      .then((response: any) => {
-        setFilms(response.data);
-				setIsLoading(true);
-        //to test:
-        //console.log(response.data);
-      })
-      .catch((e: Error) => {
-        console.log(e);
-      });
-  };
-*/
   return (
     <Container fixed>
       <Typography gutterBottom variant="h3" component="div" sx={{ m: 2 }}>
